@@ -1,6 +1,6 @@
 package com.practice.listtypeapp.data.entity;
 
-// 커멘트 엔터티
+// 댓글 엔터티
 public class Comment {
     private long postId;
     private long id;

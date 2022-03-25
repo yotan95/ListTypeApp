@@ -1,5 +1,6 @@
 package com.practice.listtypeapp.data.entity;
 
+
 public class Company {
     private String name;
     private String catchPhrase;

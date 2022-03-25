@@ -1,6 +1,6 @@
 package com.practice.listtypeapp.data.entity;
 
-// 유저 엔터
+// 유저 엔터티
 public class User {
     private long id;
     private String name;
