@@ -10,8 +10,14 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module (includes = ViewModelModule.class)
+@Module (includes = {
+        ViewModelModule.class,
+        RetrofitModule.class
+})
 public class AppModule {
 
     @Provides
@@ -34,6 +40,17 @@ public class AppModule {
     SingleLiveEvent<Throwable> provideErrorEvent(){
         return new SingleLiveEvent<>();
     }
+
+    //Retrofit 설정 Gson 컨버터, Rx 어댑터를 적용한 Retrofit 객체 생성
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit(){
+        return new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build();
+    }
+
 
 
 
