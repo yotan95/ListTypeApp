@@ -8,9 +8,12 @@ import com.practice.listtypeapp.R;
 import com.practice.listtypeapp.databinding.ActivityMainBinding;
 import com.practice.listtypeapp.di.ActivityContext;
 import com.practice.listtypeapp.di.ActivityScope;
+import com.practice.listtypeapp.di.FragmentScope;
+import com.practice.listtypeapp.ui.post.PostModule;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class MainModule {
@@ -25,4 +28,13 @@ public abstract class MainModule {
     static Context provideContext(MainActivity activity){
         return activity;
     }
+
+    /*
+     * 서브 컴포넌트 정의
+     * */
+    @FragmentScope
+    @ContributesAndroidInjector(modules = PostModule.class)
+    abstract PostFragment getPostFragment();
+
+
 }
