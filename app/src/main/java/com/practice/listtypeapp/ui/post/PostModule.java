@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.practice.listtypeapp.databinding.FragmentPostBinding;
 import com.practice.listtypeapp.di.ApplicationContext;
 import com.practice.listtypeapp.di.FragmentScope;
-import com.practice.listtypeapp.ui.PostFragment;
+
 
 import dagger.Module;
 import dagger.Provides;

@@ -3,11 +3,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <!--ProgressBar 표현을 위한 View 패키지 참조 및 ViewModel 변수 선언-->
         <import type="android.view.View"/>
+
         <variable
                 name="viewModel"
-                type="com.practice.listtypeapp.ui.post.PostViewModel" />
+                type="com.practice.listtypeapp.ui.detail.PostDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,16 +23,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <!--데이터가 로드 중임을 알린다-->
         <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.loading? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

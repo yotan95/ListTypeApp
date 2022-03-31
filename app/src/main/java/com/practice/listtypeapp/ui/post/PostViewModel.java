@@ -10,17 +10,17 @@ import com.practice.listtypeapp.data.PostService;
 import com.practice.listtypeapp.util.SingleLiveEvent;
 
 import java.util.List;
-import java.util.Observable;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class PostViewModel extends AndroidViewModel implements PostItem.EventListener{
+public class PostViewModel extends AndroidViewModel implements PostItem.EventListener {
 
     @NonNull
     private final PostService postService;
@@ -35,7 +35,6 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
     private final SingleLiveEvent<PostItem> postClickEvent = new SingleLiveEvent<>();
 
 
-
     @Inject
     public PostViewModel(
             @NonNull Application application,
@@ -47,30 +46,32 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
         this.postService = postService;
         this.errorEvent = errorEvent;
     }
+
     /*
-    * 게시글 목록 불러오기
-    * */
-    public void loadPosts(){
+     * 게시글 목록 불러오기
+     * */
+    //.flatMapObservable(Observable::fromIterable)
+    public void loadPosts() {
         compositeDisposable.add(postService.getPosts()
-        .flatMapObservable(Observable::fromIterable)
-        .map(post -> new PostItem(post, this))
-        .toList()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(item -> loading.postValue(false))
-        .subscribe(livePosts::setValue, errorEvent::setValue));
+                .flatMapObservable(Observable::fromIterable)
+                .map(post -> new PostItem(post, this))
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(item -> loading.postValue(false))
+                .subscribe(livePosts::setValue, errorEvent::setValue));
     }
 
     @NonNull
-    public MutableLiveData<List<PostItem>> getLivePosts(){
+    public MutableLiveData<List<PostItem>> getLivePosts() {
         return livePosts;
     }
 
     /*
-    * ViewModel은 생명 주기를 알고 동작
-    * 뷰 모델이 파괴될 때, RxJava의 Disposable과 같은
-    * 리소스 등을 해제할 수 있도록 함.
-    * */
+     * ViewModel은 생명 주기를 알고 동작
+     * 뷰 모델이 파괴될 때, RxJava의 Disposable과 같은
+     * 리소스 등을 해제할 수 있도록 함.
+     * */
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -78,13 +79,13 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
         compositeDisposable.dispose();
     }
 
-    public MutableLiveData<Boolean> getLoading(){
+    public MutableLiveData<Boolean> getLoading() {
         return loading;
     }
 
     /*
-    * PostItem 클릭 이벤트 구현
-    * */
+     * PostItem 클릭 이벤트 구현
+     * */
     @Override
     public void onPostClick(PostItem postItem) {
         //Fragment로 이벤트를 전달하도록
@@ -93,7 +94,7 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
     }
 
     //PostFragment로 postClickEvent 변수를 노출
-    public SingleLiveEvent<PostItem> getPostClickEvent(){
+    public SingleLiveEvent<PostItem> getPostClickEvent() {
         return postClickEvent;
     }
 }

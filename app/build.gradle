@@ -1,20 +1,17 @@
-plugins {
-    id 'com.android.application'
-    id "androidx.navigation.safeargs" // 내비게이션 컴포넌트의 Safe Args 플러그인 추
-}
+apply plugin: 'com.android.application'
+apply plugin: "androidx.navigation.safeargs"//네비게이션 컴포넌트의 Safe Args 플러그인 추가
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.listtype"
-        minSdk 21
-        targetSdk 29
+        applicationId "com.charlezz.arch"
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,73 +21,67 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding { // 데이터 바인딩 라이브러리 적용
+        enabled = true
+    }
+    //Dagger2는 컴파일 오류가 발생하면 오류 라인수가 많아 참고하기 힘들다.
+    //컴파일 오류 최대 라인수를 설정한다.
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xmaxerrs" << "500" // or whatever number you want
+        }
+    }
+    //자바8 설정
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding{    //데이터 바인딩 라이브러리 적용
-        enabled = true
-    }
-    // Dagger2는 컴파일 오류가 발생하면 오류 라인 수가 만항 참고하기 힘듬.
-    // 컴파일 오류 최대 라인 수 설정.
-    gradle.projectsEvaluated{
-        tasks.withType(JavaCompile){
-            options.compilerArgs << "-Xmaxerrs" << "500"    // or whatever number you want
-        }
-    }
-    // 자바 8 설정
-    compileOptions{
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    testImplementation 'junit:junit:'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation "androidx.appcompat:appcompat:1.4.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.3"
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.5.0-alpha04"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
-    // Dagger2
+    //Dagger2
     implementation "com.google.dagger:dagger-android:2.41"
     implementation "com.google.dagger:dagger-android-support:2.41"
     annotationProcessor "com.google.dagger:dagger-android-processor:2.41"
     annotationProcessor "com.google.dagger:dagger-compiler:2.41"
 
-    // 디자인 서포트 라이브러리
+    //디자인 서포트 라이브러리
     implementation 'com.google.android.material:material:1.5.0'
 
-    // Retrofit2
+    //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.6.4"
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0-RC8"
 
-    // Rxjava
+    //RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.0"
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
 
-    // multidex
+    //multidex
     implementation "androidx.multidex:multidex:2.0.1"
 
-    // timber, 로그 라이블러리
+    //timber, 로그 라이브러리
     implementation "com.jakewharton.timber:timber:4.7.1"
 
-    // navigation component
+    //navigation component
     implementation "androidx.navigation:navigation-fragment:2.4.1"
     implementation "androidx.navigation:navigation-ui:2.4.1"
 
-    // fragment : 활동 내에서 호스팅되는 여러 개의 독립적인 화면으로 앱을 분할
+    //fragment
     implementation "androidx.fragment:fragment:1.4.1"
 
     //CardView
     implementation "androidx.cardview:cardview:1.0.0"
-
 }

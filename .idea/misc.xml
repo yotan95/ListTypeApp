@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21302083333333333" />
-        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.215625" />
-        <entry key="app/src/main/res/layout/view_post.xml" value="0.215625" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/fragment_post.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/fragment_post_detail.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/fragment_user.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/view_post.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/view_post_detail_comment.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/view_post_detail_post.xml" value="0.1503623188405797" />
+        <entry key="../../project/ListTypeApp/app/src/main/res/layout/view_post_detail_user.xml" value="0.1503623188405797" />
       </map>
     </option>
   </component>
