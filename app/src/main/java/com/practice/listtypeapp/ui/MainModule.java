@@ -9,7 +9,12 @@ import com.practice.listtypeapp.databinding.ActivityMainBinding;
 import com.practice.listtypeapp.di.ActivityContext;
 import com.practice.listtypeapp.di.ActivityScope;
 import com.practice.listtypeapp.di.FragmentScope;
+import com.practice.listtypeapp.ui.detail.PostDetailFragment;
+import com.practice.listtypeapp.ui.detail.PostDetailModule;
+import com.practice.listtypeapp.ui.post.PostFragment;
 import com.practice.listtypeapp.ui.post.PostModule;
+import com.practice.listtypeapp.ui.user.UserFragment;
+import com.practice.listtypeapp.ui.user.UserModule;
 
 import dagger.Module;
 import dagger.Provides;
@@ -35,6 +40,14 @@ public abstract class MainModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = PostModule.class)
     abstract PostFragment getPostFragment();
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = PostDetailModule.class)
+    abstract PostDetailFragment getPostDetailFragment();
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = UserModule.class)
+    abstract UserFragment getUserFragment();
 
 
 }

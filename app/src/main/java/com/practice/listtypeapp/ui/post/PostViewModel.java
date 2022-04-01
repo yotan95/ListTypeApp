@@ -27,30 +27,27 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
     @NonNull
     private final SingleLiveEvent<Throwable> errorEvent;
 
-    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(true);
     //RecyclerView에 표현할 아이템들을 LiveData로 관리
     private final MutableLiveData<List<PostItem>> livePosts = new MutableLiveData<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-
+    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(true);
+    //게시글 아이템 클릭 이벤트를 관리
     private final SingleLiveEvent<PostItem> postClickEvent = new SingleLiveEvent<>();
 
-
     @Inject
-    public PostViewModel(
-            @NonNull Application application,
-            PostService postService,
-            @Named("errorEvent") SingleLiveEvent<Throwable> errorEvent) {
+    public PostViewModel(@NonNull Application application,
+                         PostService postService,
+                         @Named("errorEvent") SingleLiveEvent<Throwable> errorEvent) {
         super(application);
         Timber.d("PostViewModel created");
-        //오브젝트 그래프로부터 생성자 주입
+        //오브젝트 그래프로 부터 생성자 주입
         this.postService = postService;
         this.errorEvent = errorEvent;
     }
 
-    /*
+    /**
      * 게시글 목록 불러오기
-     * */
-    //.flatMapObservable(Observable::fromIterable)
+     */
     public void loadPosts() {
         compositeDisposable.add(postService.getPosts()
                 .flatMapObservable(Observable::fromIterable)
@@ -67,11 +64,12 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
         return livePosts;
     }
 
-    /*
-     * ViewModel은 생명 주기를 알고 동작
-     * 뷰 모델이 파괴될 때, RxJava의 Disposable과 같은
-     * 리소스 등을 해제할 수 있도록 함.
-     * */
+    /**
+     * ViewModel은 생명주기를 알고 동작한다.
+     * 뷰모델이 파괴될 때, RxJava의 Disposable과 같은
+     * 리소스 등을 해제할 수 있다록 한다.
+     */
+
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -79,22 +77,21 @@ public class PostViewModel extends AndroidViewModel implements PostItem.EventLis
         compositeDisposable.dispose();
     }
 
-    public MutableLiveData<Boolean> getLoading() {
-        return loading;
-    }
-
-    /*
+    /**
      * PostItem 클릭 이벤트 구현
-     * */
+     */
     @Override
     public void onPostClick(PostItem postItem) {
-        //Fragment로 이벤트를 전달하도록
+        //Fragment로 이벤트를 전달하기 위해
         //SingleLiveEvent의 값을 변경한다.
         postClickEvent.setValue(postItem);
     }
-
     //PostFragment로 postClickEvent 변수를 노출
     public SingleLiveEvent<PostItem> getPostClickEvent() {
         return postClickEvent;
     }
+    public MutableLiveData<Boolean> getLoading() {
+        return loading;
+    }
+
 }

@@ -43,10 +43,11 @@ public class PostDetailFragment extends DaggerFragment {
         viewModel = new ViewModelProvider(this, viewModelFactory)
                 .get(PostDetailViewModel.class);
         if(savedInstanceState == null){
-            //Post 객체 전달받기
+           // Post 객체 전달받기
             PostDetailFragmentArgs args = PostDetailFragmentArgs
                     .fromBundle(getArguments());
             viewModel.load(args.getPost());
+
         }
     }
 
